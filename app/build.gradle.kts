@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.flashcards"
+    namespace = "com.example.flashcards" // Set your package namespace here
     compileSdk = 35
 
     defaultConfig {
@@ -42,4 +42,6 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
+    // Add this if you're using XML themes with Material Components
+    implementation("com.google.android.material:material:1.9.0")
 }
