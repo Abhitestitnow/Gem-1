@@ -19,7 +19,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import com.example.flashcards.data.Flashcard
-import com.example.flashcards.data.FlashcardGroup
 import com.example.flashcards.ui.theme.FlashCardsTheme
 import com.example.flashcards.viewmodel.FlashcardViewModel
 
@@ -49,7 +48,7 @@ fun FlashcardsApp(viewModel: FlashcardViewModel = viewModel()) {
                 LibraryScreen(viewModel, navController)
             }
             composable(
-                route = "group/{groupId}",
+                "group/{groupId}",
                 arguments = listOf(navArgument("groupId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val groupId = backStackEntry.arguments?.getInt("groupId") ?: 0
