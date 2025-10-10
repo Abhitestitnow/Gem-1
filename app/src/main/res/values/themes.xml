@@ -1,5 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.FlashCards" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.FlashCards" parent="Theme.Material3.DayNight">
         <!-- Customize your theme here -->
+        <!-- Example: Disable ActionBar if needed -->
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 </resources>
