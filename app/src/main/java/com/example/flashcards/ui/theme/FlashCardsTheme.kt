@@ -41,11 +41,10 @@ fun FlashCardsTheme(
     content: @Composable () -> Unit
 ) {
     val colors = if (useDarkTheme) DarkColors else LightColors
-
     MaterialTheme(
         colorScheme = colors,
-        typography = Typography,  // Use default or customize in Typography.kt
-        shapes = Shapes,          // Use default or customize in Shapes.kt
+        typography = Typography,
+        shapes = Shapes,
         content = content
     )
 }
