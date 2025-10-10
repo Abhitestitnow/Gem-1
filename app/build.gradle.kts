@@ -21,7 +21,7 @@ android {
     }
 
     composeOptions {
-        // Remove kotlinCompilerExtensionVersion as Compose compiler plugin handles this now
+        // No kotlinCompilerExtensionVersion needed with Kotlin 2.0 plugin
     }
 
     compileOptions {
