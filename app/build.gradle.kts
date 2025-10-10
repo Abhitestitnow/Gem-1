@@ -1,8 +1,7 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt") // Enable kapt here
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
+    kotlin("android")
+    kotlin("kapt") // Enable kapt for annotation processing (Room)
 }
 
 android {
@@ -21,9 +20,8 @@ android {
         compose = true
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.0" // Use latest stable Compose compiler version
     }
 
     kotlinOptions {
@@ -32,13 +30,27 @@ android {
             "-Xopt-in=androidx.compose.material3.ExperimentalMaterial3Api"
         )
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}" // Prevent duplicate files error if needed
+        }
+    }
 }
 
 dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2024.09.02")
     implementation(composeBom)
+    androidTestImplementation(composeBom)
+
     implementation("androidx.activity:activity-compose:1.9.2")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3-window-size-class:1.4.0")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
@@ -53,4 +65,7 @@ dependencies {
 
     // ViewModel Compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+
+    // Optional: Material Components for Android (if using XML Material themes)
+    implementation("com.google.android.material:material:1.9.0")
 }
