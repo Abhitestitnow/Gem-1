@@ -1,4 +1,3 @@
-// app/src/main/java/com/example/flashcards/MainActivity.kt
 package com.example.flashcards
 
 import android.os.Bundle
@@ -17,6 +16,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FlashcardApp() {
     var index by remember { mutableStateOf(0) }
