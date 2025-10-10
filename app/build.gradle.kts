@@ -43,6 +43,5 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
 
-    // Include Material Components library for XML theming support
     implementation("com.google.android.material:material:1.9.0")
 }
