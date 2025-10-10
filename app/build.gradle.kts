@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("plugin.compose") version "2.0.0" // Compose Compiler Gradle plugin required for Kotlin 2.0
+    kotlin("plugin.compose") version "2.0.0" // Compose Compiler Gradle plugin
     kotlin("kapt")
 }
 
@@ -21,9 +21,8 @@ android {
         compose = true
     }
 
-    // Remove kotlinCompilerExtensionVersion from composeOptions (no longer required with Kotlin 2.0 plugin)
     composeOptions {
-        // No explicit kotlinCompilerExtensionVersion needed
+        // No need for kotlinCompilerExtensionVersion with Kotlin 2.0 plugin
     }
 
     kotlinOptions {
@@ -57,17 +56,12 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
 
-    // Room dependencies
     implementation("androidx.room:room-runtime:2.5.2")
     kapt("androidx.room:room-compiler:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
 
-    // Navigation Compose
     implementation("androidx.navigation:navigation-compose:2.5.3")
-
-    // ViewModel Compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
-    // Material Components for Android (optional, for XML styling)
     implementation("com.google.android.material:material:1.9.0")
 }
