@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("kapt") // Enable kapt for annotation processing (Room)
+    kotlin("plugin.compose") version "2.0.0" // Compose Compiler Gradle plugin required for Kotlin 2.0
+    kotlin("kapt")
 }
 
 android {
@@ -20,8 +21,9 @@ android {
         compose = true
     }
 
+    // Remove kotlinCompilerExtensionVersion from composeOptions (no longer required with Kotlin 2.0 plugin)
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.0" // Use latest stable Compose compiler version
+        // No explicit kotlinCompilerExtensionVersion needed
     }
 
     kotlinOptions {
@@ -38,7 +40,7 @@ android {
 
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}" // Prevent duplicate files error if needed
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
 }
@@ -66,6 +68,6 @@ dependencies {
     // ViewModel Compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
-    // Optional: Material Components for Android (if using XML Material themes)
+    // Material Components for Android (optional, for XML styling)
     implementation("com.google.android.material:material:1.9.0")
 }
