@@ -14,10 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavType
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.example.flashcards.data.Flashcard
 import com.example.flashcards.ui.theme.FlashCardsTheme
 import com.example.flashcards.viewmodel.FlashcardViewModel
@@ -87,7 +90,7 @@ fun LibraryScreen(viewModel: FlashcardViewModel, navController: NavHostControlle
         LazyColumn {
             items(groups) { group ->
                 Text(
-                    text = group.name,
+                    text = group.groupName, // fixed from group.name to group.groupName matching your data class
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -110,6 +113,7 @@ fun GroupDetailScreen(
     val flashcards = flashcardsState.value
 
     var showAddCard by remember { mutableStateOf(false) }
+    val density = LocalDensity.current.density
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Text("Flashcards", style = MaterialTheme.typography.headlineSmall)
@@ -133,7 +137,7 @@ fun GroupDetailScreen(
 
         LazyColumn {
             items(flashcards) { flashcard ->
-                FlashcardItem(flashcard, onDelete = { viewModel.deleteFlashcard(it) })
+                FlashcardItem(flashcard, onDelete = { viewModel.deleteFlashcard(it) }, density)
                 Divider()
             }
         }
@@ -141,7 +145,7 @@ fun GroupDetailScreen(
 }
 
 @Composable
-fun FlashcardItem(flashcard: Flashcard, onDelete: (Flashcard) -> Unit) {
+fun FlashcardItem(flashcard: Flashcard, onDelete: (Flashcard) -> Unit, density: Float) {
     var flipped by remember { mutableStateOf(false) }
     val rotation by animateFloatAsState(targetValue = if (flipped) 180f else 0f)
 
