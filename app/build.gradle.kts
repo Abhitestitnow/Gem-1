@@ -15,6 +15,9 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+
+        // Enable multidex to handle method count limit and reduce dex merging issues
+        multiDexEnabled = true
     }
 
     buildFeatures {
@@ -24,7 +27,6 @@ android {
     kotlinOptions {
         jvmTarget = "17"
         freeCompilerArgs += listOf(
-            // Replace deprecated "-Xopt-in" with "-opt-in"
             "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
         )
     }
@@ -42,7 +44,7 @@ android {
 }
 
 dependencies {
-    val roomVersion = "2.8.2"  // Latest stable Room
+    val roomVersion = "2.8.2"  // Updated Room version
     val composeBom = platform("androidx.compose:compose-bom:2024.09.02")
 
     implementation(composeBom)
@@ -63,4 +65,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
     implementation("com.google.android.material:material:1.9.0")
+
+    // Multidex support library
+    implementation("androidx.multidex:multidex:2.0.1")
 }
