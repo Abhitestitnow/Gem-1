@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "flashcards")
 data class Flashcard(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val question: String,
-    val answer: String,
-    val groupId: Int
+    val answer: String
 )
