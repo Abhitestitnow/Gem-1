@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("plugin.compose") version "2.0.0" // Compose Compiler Gradle plugin
+    kotlin("plugin.compose") version "2.0.0" // Kotlin Compose compiler plugin
     kotlin("kapt")
 }
 
@@ -16,7 +16,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        // Enable multidex to handle method count limit and reduce dex merging issues
+        // Enable multidex to solve dex merging and method limit issues
         multiDexEnabled = true
     }
 
@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-    val roomVersion = "2.8.2"  // Updated Room version
+    val roomVersion = "2.8.2"
     val composeBom = platform("androidx.compose:compose-bom:2024.09.02")
 
     implementation(composeBom)
