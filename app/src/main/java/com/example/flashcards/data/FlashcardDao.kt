@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FlashcardDao {
+
     @Query("SELECT * FROM flashcard_groups")
     fun getAllGroups(): Flow<List<FlashcardGroup>>
 
