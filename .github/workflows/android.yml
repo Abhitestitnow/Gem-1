@@ -1,33 +1,68 @@
-# .github/workflows/android.yml
-name: Android CI
+name: Android CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'  # nightly build at midnight, adjust as needed
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      JAVA_OPTS: "-Xmx4g"
+      
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
           java-version: '17'
+          distribution: 'temurin'
 
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
         with:
-          gradle-version: '8.10'   # pick a stable version
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
-      - name: Build Debug APK
-        run: gradle assembleDebug
+      - name: Cache Kotlin compiler
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.konan
+            ~/.kotlin
+          key: ${{ runner.os }}-kotlin-${{ hashFiles('**/*.gradle.kts', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-kotlin-
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Run lint checks
+        run: ./gradlew lintDebug --no-daemon --stacktrace
+
+      - name: Run unit tests
+        run: ./gradlew testDebugUnitTest --no-daemon --stacktrace
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
+        env:
+          ORG_GRADLE_JVMARGS: "-Xmx4g"
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v3
         with:
           name: app-debug.apk
           path: app/build/outputs/apk/debug/app-debug.apk
