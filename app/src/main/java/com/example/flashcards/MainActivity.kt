@@ -90,7 +90,7 @@ fun LibraryScreen(viewModel: FlashcardViewModel, navController: NavHostControlle
         LazyColumn {
             items(groups) { group ->
                 Text(
-                    text = group.groupName, // fixed from group.name to group.groupName matching your data class
+                    text = group.groupName,
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier
                         .fillMaxWidth()
