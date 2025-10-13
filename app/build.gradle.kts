@@ -24,7 +24,8 @@ android {
     kotlinOptions {
         jvmTarget = "17"
         freeCompilerArgs += listOf(
-            "-Xopt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+            // Replace deprecated "-Xopt-in" with "-opt-in"
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
         )
     }
 
@@ -41,9 +42,9 @@ android {
 }
 
 dependencies {
-    val roomVersion = "2.8.2"  // Updated Room version
-
+    val roomVersion = "2.8.2"  // Latest stable Room
     val composeBom = platform("androidx.compose:compose-bom:2024.09.02")
+
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
