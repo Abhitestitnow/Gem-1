@@ -21,10 +21,6 @@ android {
         compose = true
     }
 
-    composeOptions {
-        // No need for kotlinCompilerExtensionVersion with Kotlin 2.0 plugin
-    }
-
     kotlinOptions {
         jvmTarget = "17"
         freeCompilerArgs += listOf(
@@ -45,6 +41,8 @@ android {
 }
 
 dependencies {
+    val roomVersion = "2.8.2"  // Updated Room version
+
     val composeBom = platform("androidx.compose:compose-bom:2024.09.02")
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -56,9 +54,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
 
-    implementation("androidx.room:room-runtime:2.5.2")
-    kapt("androidx.room:room-compiler:2.5.2")
-    implementation("androidx.room:room-ktx:2.5.2")
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
