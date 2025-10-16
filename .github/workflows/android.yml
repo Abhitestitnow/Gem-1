@@ -2,18 +2,16 @@ name: Android CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     env:
-      # Gradle JVM heap settings passed correctly
+      # Pass correct JVM heap size to Gradle JVM via Gradle-specific env var
       ORG_GRADLE_JVMARGS: -Xmx4g
 
     steps:
@@ -44,7 +42,7 @@ jobs:
           key: kotlin-compiler-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: kotlin-compiler-
 
-      - name: Grant execute permission for Gradle wrapper
+      - name: Make gradlew executable
         run: chmod +x ./gradlew
 
       - name: Run lint checks
