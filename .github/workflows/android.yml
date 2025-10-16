@@ -11,12 +11,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     env:
-      JAVA_OPTS: "-Xmx4g"
-      ORG_GRADLE_JVMARGS: "-Xmx4g"
+      # Gradle JVM heap settings passed correctly
+      ORG_GRADLE_JVMARGS: -Xmx4g
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -42,7 +44,7 @@ jobs:
           key: kotlin-compiler-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: kotlin-compiler-
 
-      - name: Make gradlew executable
+      - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
 
       - name: Run lint checks
